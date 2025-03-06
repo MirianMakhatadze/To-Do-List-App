@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 function ToDoList () {
-    const [toDoList, setToDoList] = useState(["Eat breakfast", "Write code", "Go to the gym"]);
+    const [toDoList, setToDoList] = useState(["Example 1", "Example 2", "Example 3"]);
     const [newTask, setNewTask] = useState("");
 
     function handleInputChange(event) {
@@ -9,8 +9,10 @@ function ToDoList () {
     }
 
     function addTask() {
-        setToDoList([...toDoList, newTask])
-        setNewTask("")
+        if (newTask.trim() !== ""){
+            setToDoList(t => [...t, newTask])
+            setNewTask("")
+        }
     }
 
     function deleteTask(index) {
@@ -18,10 +20,19 @@ function ToDoList () {
     }
 
     function moveTaskUp (index) {
-
+        if (index > 0){
+            const updatedTasks = [...toDoList];
+            [updatedTasks[index], updatedTasks[index - 1]] = [updatedTasks[index - 1], updatedTasks[index]];
+            setToDoList(updatedTasks);
+        }
     }
 
     function moveTaskDown (index) {
+        if (index < toDoList.length - 1){
+            const updatedTasks = [...toDoList];
+            [updatedTasks[index], updatedTasks[index + 1]] = [updatedTasks[index + 1], updatedTasks[index]];
+            setToDoList(updatedTasks);
+        }
 
     }
 
